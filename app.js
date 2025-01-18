@@ -2,6 +2,8 @@
 // Here you should import the required packages for your Express app: `express` and `morgan`
 const express = require("express");
 const logger = require("morgan");
+const articles = require("./data/articles.json")
+const projects = require("./data/projects.json")
 
 // CREATE EXPRESS APP
 // Here you should create your Express app:
@@ -14,6 +16,7 @@ const app = express();
 // - `express.json()` to parse incoming requests with JSON payloads
 // - `morgan` logger to log all incoming requests
 app.use(express.static("public"));
+//app.use(express.static("data"));
 app.use(express.json());
 app.use(logger("dev"));
 
@@ -28,11 +31,11 @@ app.get("/blog", (req, res) => {
 
 // Get the data from projects
 app.get("/api/projects", (req, res) => {
-	res.sendFile(__dirname + "/data/projects.json");
+	res.json(projects);
 });
 // Get the data from articles
 app.get("/api/articles", (req, res) => {
-	res.sendFile(__dirname + "/data/articles.json");
+	res.json(articles);
 });
 
 //Final route if none of the above matched
